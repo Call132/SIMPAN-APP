@@ -29,6 +29,15 @@ class ManagePantiSettings extends SettingsPage
                         TextInput::make('nama_panti')
                             ->required()
                             ->maxLength(255),
+                        \Filament\Forms\Components\RichEditor::make('sejarah_panti')
+                            ->label('Sejarah Singkat')
+                            ->columnSpanFull(),
+                        \Filament\Forms\Components\RichEditor::make('visi_panti')
+                            ->label('Visi')
+                            ->columnSpanFull(),
+                        \Filament\Forms\Components\RichEditor::make('misi_panti')
+                            ->label('Misi')
+                            ->columnSpanFull(),
                         Textarea::make('alamat')
                             ->required()
                             ->maxLength(65535)
@@ -53,6 +62,7 @@ class ManagePantiSettings extends SettingsPage
                         FileUpload::make('logo_path')
                             ->label('Logo Panti')
                             ->image()
+                            ->disk('public')
                             ->directory('panti-logos')
                             ->columnSpanFull(),
                     ])->columns(2),

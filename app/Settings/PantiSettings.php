@@ -23,6 +23,9 @@ class PantiSettings extends Settings
     public string $nama_bank_b;
     
     public ?string $logo_path;
+    public ?string $sejarah_panti;
+    public ?string $visi_panti;
+    public ?string $misi_panti;
 
     public static function group(): string
     {

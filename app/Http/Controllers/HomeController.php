@@ -32,4 +32,17 @@ class HomeController extends Controller
         // $settings diteruskan ke halaman home
         return view('home', compact('totalAnak', 'donasiBulanIni', 'donasiTerbaru', 'programAktif', 'settings'));
     }
+    public function anakAsuh(PantiSettings $settings)
+    {
+        $anakAsuhList = AnakAsuh::where('status_aktif', true)
+            ->select('id', 'nama_panggilan', 'nama_lengkap', 'tanggal_lahir', 'tanggal_masuk', 'jenis_kelamin')
+            ->paginate(12);
+
+        return view('anak-asuh', compact('anakAsuhList', 'settings'));
+    }
+
+    public function tentang(PantiSettings $settings)
+    {
+        return view('tentang-kami', compact('settings'));
+    }
 }
