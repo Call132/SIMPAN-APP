@@ -2,19 +2,21 @@
 
 namespace App\Filament\Resources\AnakAsuhs;
 
+use App\Filament\Resources\AnakAsuhs\Infolists\AnakAsuhInfolist;
 use App\Filament\Resources\AnakAsuhs\Pages\CreateAnakAsuh;
 use App\Filament\Resources\AnakAsuhs\Pages\EditAnakAsuh;
 use App\Filament\Resources\AnakAsuhs\Pages\ListAnakAsuhs;
+use App\Filament\Resources\AnakAsuhs\Pages\ViewAnakAsuh;
 use App\Filament\Resources\AnakAsuhs\Schemas\AnakAsuhForm;
 use App\Filament\Resources\AnakAsuhs\Tables\AnakAsuhsTable;
 use App\Models\AnakAsuh;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class AnakAsuhResource extends Resource
 {
@@ -22,7 +24,9 @@ class AnakAsuhResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-users';
 
-    protected static \UnitEnum|string|null $navigationGroup = 'Manajemen Panti';
+    protected static UnitEnum|string|null $navigationGroup = 'Manajemen Panti';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationLabel = 'Anak Asuh';
 
@@ -37,6 +41,11 @@ class AnakAsuhResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return AnakAsuhForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return AnakAsuhInfolist::configure($schema);
     }
 
     public static function table(Table $table): Table
@@ -56,6 +65,7 @@ class AnakAsuhResource extends Resource
         return [
             'index' => ListAnakAsuhs::route('/'),
             'create' => CreateAnakAsuh::route('/create'),
+            'view' => ViewAnakAsuh::route('/{record}'),
             'edit' => EditAnakAsuh::route('/{record}/edit'),
         ];
     }

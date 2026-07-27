@@ -58,9 +58,11 @@ class DashboardPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 'Manajemen Panti',
+                'Monitoring Anak',
                 'Donasi & Keuangan',
                 'Operasional',
-                'Pengaturan',
+                'Laporan',
+                'Profil Panti',
             ]);
     }
 }

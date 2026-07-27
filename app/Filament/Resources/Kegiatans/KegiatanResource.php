@@ -21,7 +21,9 @@ class KegiatanResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-calendar';
     
     protected static \UnitEnum|string|null $navigationGroup = 'Operasional';
-    
+
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $navigationLabel = 'Kegiatan';
     
     protected static ?string $modelLabel = 'Kegiatan';

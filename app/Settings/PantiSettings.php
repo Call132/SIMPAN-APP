@@ -14,13 +14,9 @@ class PantiSettings extends Settings
     public string $email;
     public string $maps_embed_url;
     
-    public string $nomor_rekening_bank_a;
-    public string $atas_nama_bank_a;
-    public string $nama_bank_a;
-    
-    public string $nomor_rekening_bank_b;
-    public string $atas_nama_bank_b;
-    public string $nama_bank_b;
+    public string $nomor_rekening;
+    public string $atas_nama;
+    public string $nama_bank;
     
     public ?string $logo_path;
     public ?string $sejarah_panti;

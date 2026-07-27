@@ -22,6 +22,8 @@ class InventarisResource extends Resource
 
     protected static \UnitEnum|string|null $navigationGroup = 'Operasional';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationLabel = 'Inventaris Barang';
 
     protected static ?string $modelLabel = 'Inventaris';

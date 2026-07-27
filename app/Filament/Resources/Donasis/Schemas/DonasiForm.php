@@ -28,8 +28,6 @@ class DonasiForm
                         'barang' => 'Barang',
                         'makanan' => 'Makanan',
                         'pakaian' => 'Pakaian',
-                        'buku' => 'Buku',
-                        'lainnya' => 'Lainnya',
                     ])
                     ->required(),
                 TextInput::make('jumlah_uang')

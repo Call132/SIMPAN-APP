@@ -22,6 +22,8 @@ class PengurusResource extends Resource
 
     protected static \UnitEnum|string|null $navigationGroup = 'Manajemen Panti';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationLabel = 'Pengurus & Staf';
 
     protected static ?string $modelLabel = 'Pengurus';

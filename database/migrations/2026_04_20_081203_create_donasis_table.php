@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('donatur_id')->constrained('donaturs')->cascadeOnDelete();
             $table->date('tanggal_donasi');
-            $table->enum('jenis_donasi', ['uang', 'barang', 'makanan', 'pakaian', 'buku', 'lainnya']);
+            $table->enum('jenis_donasi', ['uang', 'barang', 'makanan', 'pakaian']);
             $table->decimal('jumlah_uang', 15, 2)->nullable();
             $table->string('satuan_barang')->nullable();
             $table->integer('jumlah_barang')->nullable();

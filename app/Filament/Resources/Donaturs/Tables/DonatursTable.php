@@ -15,12 +15,8 @@ class DonatursTable
     {
         return $table
             ->columns([
-                TextColumn::make('kode_donatur')
-                    ->searchable(),
                 TextColumn::make('nama')
                     ->searchable(),
-                TextColumn::make('tipe')
-                    ->badge(),
                 IconColumn::make('status_aktif')
                     ->boolean(),
             ])

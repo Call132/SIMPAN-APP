@@ -13,8 +13,8 @@ use Filament\Forms\Components\FileUpload;
 class ManagePantiSettings extends SettingsPage
 {
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-cog-6-tooth';
-    protected static \UnitEnum|string|null $navigationGroup = 'Pengaturan';
-    protected static ?string $navigationLabel = 'Pengaturan';
+    protected static \UnitEnum|string|null $navigationGroup = 'Profil Panti';
+    protected static ?string $navigationLabel = 'Profil Panti';
     protected static ?string $title = 'Informasi & Profil Panti';
 
     protected static string $settings = PantiSettings::class;
@@ -68,21 +68,14 @@ class ManagePantiSettings extends SettingsPage
                     ])->columns(2),
 
                 Section::make('Rekening Donasi')
-                    ->description('Atur daftar rekening bank untuk transfer donatur.')
+                    ->description('Atur rekening bank resmi untuk transfer donatur.')
                     ->schema([
-                        TextInput::make('nama_bank_a')
-                            ->label('Nama Bank 1'),
-                        TextInput::make('nomor_rekening_bank_a')
-                            ->label('No. Rekening 1'),
-                        TextInput::make('atas_nama_bank_a')
-                            ->label('Atas Nama 1'),
-
-                        TextInput::make('nama_bank_b')
-                            ->label('Nama Bank 2'),
-                        TextInput::make('nomor_rekening_bank_b')
-                            ->label('No. Rekening 2'),
-                        TextInput::make('atas_nama_bank_b')
-                            ->label('Atas Nama 2'),
+                        TextInput::make('nama_bank')
+                            ->label('Nama Bank'),
+                        TextInput::make('nomor_rekening')
+                            ->label('No. Rekening'),
+                        TextInput::make('atas_nama')
+                            ->label('Atas Nama'),
                     ])->columns(3),
             ]);
     }

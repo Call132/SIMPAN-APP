@@ -19,28 +19,23 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-12 min-h-screen">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             @forelse ($anakAsuhList as $anak)
-                @php
-                    $namaTampil = $anak->nama_panggilan ?: $anak->nama_lengkap;
-                    $namaAvatar = $anak->nama_panggilan ?: 'Anak';
-                    $umur = $anak->tanggal_lahir ? \Carbon\Carbon::parse($anak->tanggal_lahir)->age : '?';
-                    $tglMasuk = $anak->tanggal_masuk ? \Carbon\Carbon::parse($anak->tanggal_masuk)->translatedFormat('d M Y') : '-';
-                    $jenisKelamin = strtolower($anak->jenis_kelamin) == 'laki-laki' || strtolower($anak->jenis_kelamin) == 'l' ? 'Laki-laki' : 'Perempuan';
-                @endphp
-                <div class="bg-white rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300 p-6 flex flex-col items-center text-center">
-                    <img 
-                        src="https://ui-avatars.com/api/?name={{ urlencode($namaAvatar) }}&background=6777ef&color=fff&size=128" 
-                        alt="{{ $namaTampil }}" 
-                        class="w-24 h-24 rounded-full mb-4 shadow-sm border-2 border-slate-50"
-                    >
-                    
-                    <h3 class="font-semibold text-lg text-slate-900 mb-1 leading-tight">{{ $namaTampil }}</h3>
-                    <p class="text-sm text-slate-500 mb-3">{{ $umur }} Tahun</p>
-                    
-                    <div class="w-full space-y-2 mt-auto">
-                        <div class="flex flex-col gap-1 items-center justify-between text-xs bg-slate-50 rounded-lg px-3 py-2">
-                            <span class="text-slate-500">Tgl Masuk</span>
-                            <span class="font-medium text-slate-700">{{ $tglMasuk }}</span>
-                        </div>
+                    @php
+                        $namaTampil = $anak->nama_panggilan ?: $anak->nama_lengkap;
+                        $namaAvatar = $anak->nama_panggilan ?: 'Anak';
+                        $umur = $anak->tanggal_lahir ? \Carbon\Carbon::parse($anak->tanggal_lahir)->age : '?';
+                        $jenisKelamin = strtolower($anak->jenis_kelamin) == 'laki-laki' || strtolower($anak->jenis_kelamin) == 'l' ? 'Laki-laki' : 'Perempuan';
+                    @endphp
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300 p-6 flex flex-col items-center text-center">
+                        <img 
+                            src="https://ui-avatars.com/api/?name={{ urlencode($namaAvatar) }}&background=6777ef&color=fff&size=128" 
+                            alt="{{ $namaTampil }}" 
+                            class="w-24 h-24 rounded-full mb-4 shadow-sm border-2 border-slate-50"
+                        >
+                        
+                        <h3 class="font-semibold text-lg text-slate-900 mb-1 leading-tight">{{ $namaTampil }}</h3>
+                        <p class="text-sm text-slate-500 mb-3">{{ $umur }} Tahun</p>
+                        
+                        <div class="w-full space-y-2 mt-auto">
                         
                         <div class="flex justify-center mt-3">
                             @if($jenisKelamin == 'Laki-laki')

@@ -9,3 +9,11 @@ Route::get('/anak-asuh', [HomeController::class, 'anakAsuh'])->name('anak-asuh.p
 
 Route::get('/kegiatan', [\App\Http\Controllers\KegiatanController::class, 'index'])->name('kegiatan.public');
 Route::get('/kegiatan/{kegiatan}', [\App\Http\Controllers\KegiatanController::class, 'show'])->name('kegiatan.show');
+
+use App\Http\Controllers\LaporanController;
+
+Route::middleware(['web', 'auth'])->prefix('laporan')->name('laporan.')->group(function () {
+    Route::get('/anak-asuh', [LaporanController::class, 'cetakAnakAsuh'])->name('anak-asuh');
+    Route::get('/donasi', [LaporanController::class, 'cetakDonasi'])->name('donasi');
+    Route::get('/perkembangan', [LaporanController::class, 'cetakPerkembangan'])->name('perkembangan');
+});

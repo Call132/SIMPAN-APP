@@ -14,8 +14,6 @@ class InventarisForm
     {
         return $schema
             ->components([
-                TextInput::make('kode_barang')
-                    ->required(),
                 TextInput::make('nama_barang')
                     ->required(),
                 Select::make('kategori')

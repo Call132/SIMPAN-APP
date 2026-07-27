@@ -22,6 +22,8 @@ class DonasiResource extends Resource
 
     protected static \UnitEnum|string|null $navigationGroup = 'Donasi & Keuangan';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationLabel = 'Data Donasi';
 
     protected static ?string $modelLabel = 'Donasi';

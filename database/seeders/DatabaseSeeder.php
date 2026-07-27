@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         // User Admin (opsional jika belum ada)
         User::firstOrCreate(
-            ['email' => 'admin@admin.com'],
+            ['email' => 'admin@test.com'],
             ['name' => 'Admin Panel', 'password' => bcrypt('password')]
         );
 
@@ -37,7 +37,6 @@ class DatabaseSeeder extends Seeder
                 'tanggal_lahir' => $faker->dateTimeBetween('-15 years', '-5 years')->format('Y-m-d'),
                 'agama' => 'Islam',
                 'alamat_asal' => $faker->address,
-                'tanggal_masuk' => $faker->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
                 'keterangan_masuk' => $faker->sentence,
                 'golongan_darah' => $faker->randomElement(['A', 'B', 'AB', 'O']),
                 'tinggi_badan' => $faker->randomFloat(1, 100, 160),
@@ -56,7 +55,7 @@ class DatabaseSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             Pengurus::create([
                 'nama' => $faker->name,
-                'jabatan' => $faker->randomElement(['Ketua', 'Sekretaris', 'Bendahara', 'Pengurus Harian']),
+                'jabatan' => $faker->randomElement(['Ketua', 'Sekretaris', 'Bendahara', 'Pengasuh']),
                 'alamat' => $faker->address,
                 'telepon' => $faker->phoneNumber,
                 'tanggal_mulai_tugas' => $faker->dateTimeBetween('-3 years', 'now')->format('Y-m-d'),
@@ -68,9 +67,7 @@ class DatabaseSeeder extends Seeder
         $donaturs = [];
         for ($i = 0; $i < 5; $i++) {
             $donaturs[] = Donatur::create([
-                'kode_donatur' => 'DNT-' . Str::upper(Str::random(5)),
-                'nama' => $faker->company,
-                'tipe' => $faker->randomElement(['individu', 'perusahaan', 'komunitas']),
+                'nama' => $i === 0 ? null : $faker->name,
                 'email' => $faker->safeEmail,
                 'telepon' => $faker->phoneNumber,
                 'alamat' => $faker->address,
@@ -80,13 +77,14 @@ class DatabaseSeeder extends Seeder
 
         // 4. Donasi (15)
         for ($i = 0; $i < 15; $i++) {
+            $jenis = $faker->randomElement(['uang', 'barang', 'makanan', 'pakaian']);
             Donasi::create([
                 'donatur_id' => $faker->randomElement($donaturs)->id,
                 'tanggal_donasi' => $faker->dateTimeBetween('-6 months', 'now')->format('Y-m-d'),
-                'jenis_donasi' => 'uang',
-                'jumlah_uang' => $faker->randomElement([50000, 100000, 250000, 500000, 1000000, 1500000]),
-                'satuan_barang' => null,
-                'jumlah_barang' => null,
+                'jenis_donasi' => $jenis,
+                'jumlah_uang' => $jenis === 'uang' ? $faker->randomElement([50000, 100000, 250000, 500000, 1000000, 1500000]) : null,
+                'satuan_barang' => $jenis !== 'uang' ? 'Paket' : null,
+                'jumlah_barang' => $jenis !== 'uang' ? $faker->numberBetween(1, 50) : null,
                 'keterangan' => 'Sumbangan operasional',
                 'bukti_transfer' => null,
             ]);
@@ -95,7 +93,6 @@ class DatabaseSeeder extends Seeder
         // 5. Inventaris (5)
         for ($i = 0; $i < 5; $i++) {
             Inventaris::create([
-                'kode_barang' => 'INV-' . Str::upper(Str::random(5)),
                 'nama_barang' => $faker->randomElement(['Lemari Es', 'Kipas Angin', 'Meja Belajar', 'Kursi', 'Laptop']),
                 'kategori' => $faker->randomElement(['elektronik', 'mebel', 'perlengkapan']),
                 'jumlah' => $faker->numberBetween(1, 10),
@@ -105,5 +102,8 @@ class DatabaseSeeder extends Seeder
                 'keterangan' => $faker->sentence,
             ]);
         }
+
+        // 6. Monitoring (Observasi Harian, Pendidikan, Kesehatan)
+        $this->call(MonitoringSeeder::class);
     }
 }

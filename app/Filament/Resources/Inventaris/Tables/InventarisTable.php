@@ -14,8 +14,6 @@ class InventarisTable
     {
         return $table
             ->columns([
-                TextColumn::make('kode_barang')
-                    ->searchable(),
                 TextColumn::make('nama_barang')
                     ->searchable(),
                 TextColumn::make('kategori')

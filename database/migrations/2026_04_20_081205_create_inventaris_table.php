@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('inventaris', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_barang')->unique();
             $table->string('nama_barang');
             $table->enum('kategori', ['elektronik', 'mebel', 'perlengkapan', 'alat tulis', 'lainnya']);
             $table->integer('jumlah');

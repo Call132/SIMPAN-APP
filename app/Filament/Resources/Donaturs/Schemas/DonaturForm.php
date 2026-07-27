@@ -14,13 +14,8 @@ class DonaturForm
     {
         return $schema
             ->components([
-                TextInput::make('kode_donatur')
-                    ->required(),
                 TextInput::make('nama')
-                    ->required(),
-                Select::make('tipe')
-                    ->options(['individu' => 'Individu', 'perusahaan' => 'Perusahaan', 'komunitas' => 'Komunitas'])
-                    ->required(),
+                    ->placeholder('Hamba Allah / Dermawan'),
                 TextInput::make('email')
                     ->label('Email address')
                     ->email(),

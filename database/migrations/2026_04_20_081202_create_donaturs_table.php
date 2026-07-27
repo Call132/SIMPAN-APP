@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('donaturs', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_donatur')->unique();
-            $table->string('nama');
-            $table->enum('tipe', ['individu', 'perusahaan', 'komunitas']);
+            $table->string('nama')->nullable()->default('Hamba Allah / Dermawan');
             $table->string('email')->nullable();
             $table->string('telepon')->nullable();
             $table->text('alamat')->nullable();

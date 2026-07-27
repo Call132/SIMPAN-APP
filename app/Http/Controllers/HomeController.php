@@ -35,7 +35,7 @@ class HomeController extends Controller
     public function anakAsuh(PantiSettings $settings)
     {
         $anakAsuhList = AnakAsuh::where('status_aktif', true)
-            ->select('id', 'nama_panggilan', 'nama_lengkap', 'tanggal_lahir', 'tanggal_masuk', 'jenis_kelamin')
+            ->select('id', 'nama_panggilan', 'nama_lengkap', 'tanggal_lahir', 'jenis_kelamin')
             ->paginate(12);
 
         return view('anak-asuh', compact('anakAsuhList', 'settings'));
