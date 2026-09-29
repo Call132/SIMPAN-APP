@@ -71,15 +71,20 @@ class MonitoringKesehatansTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->visible(fn ($record): bool => \App\Filament\Resources\MonitoringKesehatans\MonitoringKesehatanResource::canEdit($record)),
+                DeleteAction::make()
+                    ->visible(fn ($record): bool => \App\Filament\Resources\MonitoringKesehatans\MonitoringKesehatanResource::canDelete($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
+                    DeleteBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\MonitoringKesehatans\MonitoringKesehatanResource::canDeleteAny()),
+                    ForceDeleteBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\MonitoringKesehatans\MonitoringKesehatanResource::canDeleteAny()),
+                    RestoreBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\MonitoringKesehatans\MonitoringKesehatanResource::canDeleteAny()),
+                ])->visible(fn (): bool => \App\Filament\Resources\MonitoringKesehatans\MonitoringKesehatanResource::canDeleteAny()),
             ]);
     }
 }

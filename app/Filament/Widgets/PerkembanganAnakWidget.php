@@ -39,9 +39,7 @@ class PerkembanganAnakWidget extends BaseWidget
                     ->label('Sekolah & Kelas')
                     ->formatStateUsing(function (AnakAsuh $record) {
                         $p = $record->monitoringPendidikanTerbaru;
-                        if (!$p) {
-                            return $record->nama_sekolah ? "{$record->nama_sekolah} ({$record->kelas})" : '-';
-                        }
+                        if (!$p) return '-';
                         return "{$p->nama_sekolah} - Kelas {$p->kelas}";
                     })
                     ->placeholder('-'),
@@ -68,11 +66,7 @@ class PerkembanganAnakWidget extends BaseWidget
                     ->label('Tinggi / Berat')
                     ->formatStateUsing(function (AnakAsuh $record) {
                         $k = $record->monitoringKesehatanTerbaru;
-                        if (!$k) {
-                            return ($record->tinggi_badan || $record->berat_badan)
-                                ? "{$record->tinggi_badan} cm / {$record->berat_badan} kg"
-                                : '-';
-                        }
+                        if (!$k) return '-';
                         return "{$k->tinggi_badan} cm / {$k->berat_badan} kg";
                     })
                     ->placeholder('-'),

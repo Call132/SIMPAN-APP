@@ -34,14 +34,18 @@ class AnakAsuhsTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
+                EditAction::make()
+                    ->visible(fn ($record): bool => \App\Filament\Resources\AnakAsuhs\AnakAsuhResource::canEdit($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
+                    DeleteBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\AnakAsuhs\AnakAsuhResource::canDeleteAny()),
+                    ForceDeleteBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\AnakAsuhs\AnakAsuhResource::canDeleteAny()),
+                    RestoreBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\AnakAsuhs\AnakAsuhResource::canDeleteAny()),
+                ])->visible(fn (): bool => \App\Filament\Resources\AnakAsuhs\AnakAsuhResource::canDeleteAny()),
             ]);
     }
 }

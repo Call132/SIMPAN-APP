@@ -10,11 +10,21 @@ class ListInventaris extends ListRecords
 {
     protected static string $resource = InventarisResource::class;
 
+    public function getSubheading(): ?string
+    {
+        if (! static::getResource()::canCreate()) {
+            return 'Peran Anda memiliki akses lihat data (Read-Only). Penambahan dan perubahan data dinonaktifkan.';
+        }
+
+        return null;
+    }
+
     protected function getHeaderActions(): array
     {
         return [
             CreateAction::make()
-                ->label('Tambah Barang'),
+                ->label('Tambah Barang')
+                ->visible(fn (): bool => static::getResource()::canCreate()),
         ];
     }
 }

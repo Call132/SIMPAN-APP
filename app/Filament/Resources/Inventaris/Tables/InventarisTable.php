@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Inventaris\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -41,12 +42,15 @@ class InventarisTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                ViewAction::make(),
+                EditAction::make()
+                    ->visible(fn ($record): bool => \App\Filament\Resources\Inventaris\InventarisResource::canEdit($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                    DeleteBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\Inventaris\InventarisResource::canDeleteAny()),
+                ])->visible(fn (): bool => \App\Filament\Resources\Inventaris\InventarisResource::canDeleteAny()),
             ]);
     }
 }

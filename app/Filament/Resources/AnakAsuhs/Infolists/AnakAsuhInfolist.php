@@ -69,12 +69,33 @@ class AnakAsuhInfolist
                                 ->columnSpanFull(),
                         ]),
 
+                    Section::make('Profil Medis Dasar')
+                        ->icon('heroicon-o-shield-check')
+                        ->columns(3)
+                        ->schema([
+                            TextEntry::make('golongan_darah')
+                                ->label('Golongan Darah')
+                                ->badge()
+                                ->placeholder('-'),
+                            TextEntry::make('riwayat_penyakit')
+                                ->label('Riwayat Penyakit')
+                                ->placeholder('Tidak ada riwayat penyakit')
+                                ->columnSpanFull(),
+                            TextEntry::make('alergi')
+                                ->label('Alergi')
+                                ->placeholder('Tidak ada alergi')
+                                ->columnSpanFull(),
+                        ]),
+
                     Tabs::make('Kategori Perkembangan')
                         ->tabs([
                             Tabs\Tab::make('Pendidikan')
                                 ->icon('heroicon-o-academic-cap')
                                 ->schema([
                                     Group::make([
+                                        TextEntry::make('monitoringPendidikanTerbaru.jenjang_pendidikan')
+                                            ->label('Jenjang Pendidikan')
+                                            ->placeholder('Belum ada data'),
                                         TextEntry::make('monitoringPendidikanTerbaru.tahun_ajaran')
                                             ->label('Tahun Ajaran')
                                             ->placeholder('Belum ada data'),

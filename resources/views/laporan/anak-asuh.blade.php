@@ -52,7 +52,7 @@
     </table>
 
     <div class="summary-box">
-        <strong style="display: block; margin-bottom: 6px; font-size: 10.5pt; color: #0f172a;">📊 Ringkasan Total Data:</strong>
+        <strong style="display: block; margin-bottom: 6px; font-size: 10.5pt; color: #0f172a;">Ringkasan Total Data:</strong>
         <div style="display: flex; gap: 30px;">
             <div>Total Laki-laki: <strong>{{ $totalL }}</strong> anak</div>
             <div>Total Perempuan: <strong>{{ $totalP }}</strong> anak</div>

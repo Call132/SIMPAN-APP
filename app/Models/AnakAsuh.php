@@ -24,14 +24,8 @@ class AnakAsuh extends Model
         'alamat_asal',
         'keterangan_masuk',
         'golongan_darah',
-        'tinggi_badan',
-        'berat_badan',
         'riwayat_penyakit',
         'alergi',
-        'catatan_kesehatan_lain',
-        'tingkat_pendidikan',
-        'nama_sekolah',
-        'kelas',
         'status_aktif'
     ];
 

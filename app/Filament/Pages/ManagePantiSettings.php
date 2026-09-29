@@ -19,6 +19,11 @@ class ManagePantiSettings extends SettingsPage
 
     protected static string $settings = PantiSettings::class;
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->isAdmin() ?? false;
+    }
+
     public function form(Schema $schema): Schema
     {
         return $schema

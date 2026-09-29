@@ -56,11 +56,23 @@ class MonitoringPendidikanForm
                             ->required(),
                     ])->columns(2),
                     Group::make([
+                        Select::make('jenjang_pendidikan')
+                            ->label('Jenjang Pendidikan')
+                            ->options([
+                                'PAUD / TK' => 'PAUD / TK',
+                                'SD' => 'SD / MI',
+                                'SMP' => 'SMP / MTs',
+                                'SMA' => 'SMA / MA',
+                                'SMK' => 'SMK',
+                                'Kuliah' => 'Perguruan Tinggi / Kuliah',
+                                'Belum Sekolah' => 'Belum Sekolah',
+                            ])
+                            ->placeholder('Pilih Jenjang'),
                         TextInput::make('nama_sekolah')
                             ->label('Nama Sekolah'),
                         TextInput::make('kelas')
                             ->label('Kelas'),
-                    ])->columns(2),
+                    ])->columns(3),
                     Group::make([
                         TextInput::make('nilai_rata_rata')
                             ->label('Nilai Rata-rata')

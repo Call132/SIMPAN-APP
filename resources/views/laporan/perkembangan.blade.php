@@ -12,13 +12,14 @@
 @section('content')
 
     @forelse($anakList as $anak)
-        <div style="margin-bottom: 30px; page-break-inside: avoid; border: 1px solid #cbd5e1; border-radius: 6px; padding: 15px; background: #ffffff;">
+        <div style="margin-bottom: 30px; page-break-inside: avoid; break-inside: avoid; border: 1px solid #cbd5e1; border-radius: 6px; padding: 15px; background: #ffffff;">
             
             <div style="background-color: #f1f5f9; padding: 10px 14px; font-weight: 700; border-radius: 4px; margin-bottom: 15px; color: #0f172a; border-left: 4px solid #0284c7; display: flex; justify-content: space-between;">
                 <span>🧑‍🎓 {{ $anak->nama_lengkap }} ({{ $anak->nama_panggilan ?? '-' }})</span>
                 <span style="font-weight: 400; font-size: 9pt; color: #475569;">
                     TTL: {{ $anak->tempat_lahir ?? '-' }}, {{ $anak->tanggal_lahir ? \Carbon\Carbon::parse($anak->tanggal_lahir)->translatedFormat('d M Y') : '-' }} | 
-                    Sekolah: {{ $anak->nama_sekolah ?? '-' }} (Kelas {{ $anak->kelas ?? '-' }})
+                    Sekolah: {{ $anak->monitoringPendidikanTerbaru?->nama_sekolah ?? '-' }}
+                    (Kelas {{ $anak->monitoringPendidikanTerbaru?->kelas ?? '-' }})
                 </span>
             </div>
 

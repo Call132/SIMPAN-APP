@@ -30,7 +30,39 @@ class KegiatanResource extends Resource
     
     protected static ?string $pluralModelLabel = 'Kegiatan';
 
+    protected static ?string $slug = 'kegiatan';
+
     protected static ?string $recordTitleAttribute = 'nama_kegiatan';
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'kepala_panti', 'pengurus']) ?? false;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'kepala_panti', 'pengurus']) ?? false;
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus']) ?? false;
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus']) ?? false;
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus']) ?? false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus']) ?? false;
+    }
 
     public static function form(Schema $schema): Schema
     {

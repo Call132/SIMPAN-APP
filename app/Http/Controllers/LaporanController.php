@@ -11,8 +11,17 @@ use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
+    protected function checkAuthorization(): void
+    {
+        if (!auth()->check() || !auth()->user()->hasRole(['admin', 'kepala_panti', 'pengurus'])) {
+            abort(403, 'Anda tidak memiliki hak akses untuk mencetak laporan.');
+        }
+    }
+
     public function cetakAnakAsuh(Request $request)
     {
+        $this->checkAuthorization();
+
         $status = $request->input('status', 'semua');
         $jenisKelamin = $request->input('jenis_kelamin', 'semua');
 
@@ -63,6 +72,8 @@ class LaporanController extends Controller
 
     public function cetakDonasi(Request $request)
     {
+        $this->checkAuthorization();
+
         $periode = $request->input('periode', '6_bulan');
         $jenisDonasi = $request->input('jenis_donasi', 'semua');
         $tglMulai = $request->input('tanggal_mulai');
@@ -122,6 +133,8 @@ class LaporanController extends Controller
 
     public function cetakPerkembangan(Request $request)
     {
+        $this->checkAuthorization();
+
         $anakAsuhId = $request->input('anak_asuh_id', 'semua');
         $periode = $request->input('periode', '6_bulan');
         $tipe = $request->input('tipe', 'keduanya');
@@ -145,6 +158,7 @@ class LaporanController extends Controller
 
         $query = AnakAsuh::query()
             ->with([
+                'monitoringPendidikanTerbaru',
                 'monitoringPendidikans' => function ($q) use ($startStr, $endStr) {
                     $q->whereBetween('tanggal_input', [$startStr, $endStr])->orderBy('tanggal_input', 'desc');
                 },

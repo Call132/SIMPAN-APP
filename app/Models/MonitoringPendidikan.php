@@ -16,6 +16,7 @@ class MonitoringPendidikan extends Model
 
     protected $fillable = [
         'anak_asuh_id',
+        'jenjang_pendidikan',
         'tahun_ajaran',
         'semester',
         'nama_sekolah',

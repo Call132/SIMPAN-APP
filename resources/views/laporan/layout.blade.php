@@ -213,6 +213,33 @@
                 max-width: 100% !important;
             }
 
+            /* Prevent table rows from splitting across pages */
+            table.data-table thead {
+                display: table-header-group;
+            }
+
+            table.data-table tbody tr {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            /* Keep summary box together */
+            .summary-box {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            /* Keep signature block together */
+            .ttd-container {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            /* Ensure table header repeats on each print page */
+            table.data-table {
+                page-break-inside: auto;
+            }
+
             @page {
                 size: A4;
                 margin: 1.5cm;

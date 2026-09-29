@@ -63,6 +63,23 @@ class AnakAsuhForm
                             ->label('Keterangan / Latar Belakang Masuk Panti')
                             ->columnSpanFull(),
                     ]),
+                Section::make('Profil Medis & Kesehatan Dasar')
+                    ->description('Data medis permanen anak, bukan monitoring berkala')
+                    ->icon('heroicon-o-heart')
+                    ->columns(2)
+                    ->schema([
+                        Select::make('golongan_darah')
+                            ->label('Golongan Darah')
+                            ->options(['A' => 'A', 'B' => 'B', 'AB' => 'AB', 'O' => 'O']),
+                        Textarea::make('riwayat_penyakit')
+                            ->label('Riwayat Penyakit Kronis / Bawaan')
+                            ->placeholder('Contoh: Asma, Epilepsi, Kelainan jantung...')
+                            ->columnSpanFull(),
+                        Textarea::make('alergi')
+                            ->label('Alergi (Makanan / Obat-obatan)')
+                            ->placeholder('Contoh: Alergi seafood, Penisilin...')
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 }

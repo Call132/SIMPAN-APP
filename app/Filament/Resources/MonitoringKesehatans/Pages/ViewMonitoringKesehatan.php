@@ -13,7 +13,8 @@ class ViewMonitoringKesehatan extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            EditAction::make(),
+            EditAction::make()
+                ->visible(fn (): bool => static::getResource()::canEdit($this->getRecord())),
         ];
     }
 }

@@ -28,6 +28,7 @@ class ViewAnakAsuh extends ViewRecord
                 ->label('Tambah Observasi')
                 ->icon('heroicon-o-plus-circle')
                 ->color('primary')
+                ->visible(fn (): bool => auth()->user()?->hasRole(['admin', 'pengurus', 'pengasuh']) ?? false)
                 ->modalHeading('Tambah Catatan Observasi Harian')
                 ->form([
                     DatePicker::make('tanggal')
@@ -54,6 +55,7 @@ class ViewAnakAsuh extends ViewRecord
                 ->label('Update Pendidikan')
                 ->icon('heroicon-o-academic-cap')
                 ->color('info')
+                ->visible(fn (): bool => auth()->user()?->hasRole(['admin', 'pengurus', 'pengasuh']) ?? false)
                 ->modalHeading('Update Rekam Akademik / Pendidikan')
                 ->fillForm(function (): array {
                     /** @var AnakAsuh $record */
@@ -125,6 +127,7 @@ class ViewAnakAsuh extends ViewRecord
                 ->label('Update Kesehatan')
                 ->icon('heroicon-o-heart')
                 ->color('success')
+                ->visible(fn (): bool => auth()->user()?->hasRole(['admin', 'pengurus', 'pengasuh']) ?? false)
                 ->modalHeading('Update Rekam Medis / Kesehatan')
                 ->fillForm(function (): array {
                     /** @var AnakAsuh $record */

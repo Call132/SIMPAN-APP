@@ -4,7 +4,6 @@ namespace App\Filament\Widgets;
 
 use App\Models\AnakAsuh;
 use Filament\Widgets\ChartWidget;
-use Illuminate\Support\Facades\DB;
 
 class TingkatPendidikanChart extends ChartWidget
 {
@@ -18,18 +17,20 @@ class TingkatPendidikanChart extends ChartWidget
 
     protected function getData(): array
     {
-        $records = AnakAsuh::select('tingkat_pendidikan', DB::raw('count(*) as total'))
+        $anakList = AnakAsuh::query()
             ->where('status_aktif', true)
-            ->groupBy('tingkat_pendidikan')
+            ->with('monitoringPendidikanTerbaru')
             ->get();
 
-        $labels = [];
-        $values = [];
+        $counts = [];
 
-        foreach ($records as $record) {
-            $labels[] = $record->tingkat_pendidikan ?: 'Belum Diisi';
-            $values[] = $record->total;
+        foreach ($anakList as $anak) {
+            $jenjang = $anak->monitoringPendidikanTerbaru?->jenjang_pendidikan ?: 'Belum Diisi';
+            $counts[$jenjang] = ($counts[$jenjang] ?? 0) + 1;
         }
+
+        $labels = array_keys($counts);
+        $values = array_values($counts);
 
         if (empty($labels)) {
             $labels = ['Belum ada data'];

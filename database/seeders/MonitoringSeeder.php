@@ -74,16 +74,17 @@ class MonitoringSeeder extends Seeder
 
             foreach ($semesters as $s) {
                 MonitoringPendidikan::create([
-                    'anak_asuh_id' => $anak->id,
-                    'tahun_ajaran' => $s['tahun'],
-                    'semester' => $s['sem'],
-                    'nama_sekolah' => $anak->nama_sekolah ?? ('SD Negeri ' . $faker->numberBetween(1, 10)),
-                    'kelas' => $anak->kelas ?? (string)$faker->numberBetween(1, 6),
-                    'nilai_rata_rata' => $faker->randomFloat(1, 75, 95),
+                    'anak_asuh_id'         => $anak->id,
+                    'tahun_ajaran'         => $s['tahun'],
+                    'semester'             => $s['sem'],
+                    'jenjang_pendidikan'   => $faker->randomElement(['SD', 'SMP', 'SMA']),
+                    'nama_sekolah'         => 'SD Negeri ' . $faker->numberBetween(1, 10),
+                    'kelas'                => (string)$faker->numberBetween(1, 6),
+                    'nilai_rata_rata'      => $faker->randomFloat(1, 75, 95),
                     'persentase_kehadiran' => $faker->numberBetween(90, 100),
-                    'prestasi' => $faker->optional(0.6)->randomElement($prestasiList),
-                    'catatan_guru' => $faker->randomElement($catatanGuruList),
-                    'tanggal_input' => $s['tgl'],
+                    'prestasi'             => $faker->optional(0.6)->randomElement($prestasiList),
+                    'catatan_guru'         => $faker->randomElement($catatanGuruList),
+                    'tanggal_input'        => $s['tgl'],
                 ]);
             }
 

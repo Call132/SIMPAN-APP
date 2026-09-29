@@ -63,6 +63,7 @@ class DashboardPanelProvider extends PanelProvider
                 'Operasional',
                 'Laporan',
                 'Profil Panti',
+                'Pengaturan Akun',
             ]);
     }
 }

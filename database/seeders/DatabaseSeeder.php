@@ -19,35 +19,59 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User Admin (opsional jika belum ada)
-        User::firstOrCreate(
-            ['email' => 'admin@test.com'],
-            ['name' => 'Admin Panel', 'password' => bcrypt('password')]
-        );
+        // 4 Akun Role Utama
+        $users = [
+            [
+                'email' => 'admin@test.com',
+                'name' => 'Administrator',
+                'role' => User::ROLE_ADMIN,
+                'password' => bcrypt('password'),
+            ],
+            [
+                'email' => 'kepala@test.com',
+                'name' => 'Kepala Panti',
+                'role' => User::ROLE_KEPALA_PANTI,
+                'password' => bcrypt('password'),
+            ],
+            [
+                'email' => 'pengurus@test.com',
+                'name' => 'Pengurus Panti',
+                'role' => User::ROLE_PENGURUS,
+                'password' => bcrypt('password'),
+            ],
+            [
+                'email' => 'pengasuh@test.com',
+                'name' => 'Pengasuh Panti',
+                'role' => User::ROLE_PENGASUH,
+                'password' => bcrypt('password'),
+            ],
+        ];
+
+        foreach ($users as $userData) {
+            User::updateOrCreate(
+                ['email' => $userData['email']],
+                $userData
+            );
+        }
 
         $faker = Faker::create('id_ID');
 
         // 1. Anak Asuh (10)
         for ($i = 0; $i < 10; $i++) {
             AnakAsuh::create([
-                'nama_lengkap' => $faker->name,
-                'nama_panggilan' => $faker->firstName,
-                'jenis_kelamin' => $faker->randomElement(['L', 'P']),
-                'tempat_lahir' => $faker->city,
-                'tanggal_lahir' => $faker->dateTimeBetween('-15 years', '-5 years')->format('Y-m-d'),
-                'agama' => 'Islam',
-                'alamat_asal' => $faker->address,
+                'nama_lengkap'     => $faker->name,
+                'nama_panggilan'   => $faker->firstName,
+                'jenis_kelamin'    => $faker->randomElement(['L', 'P']),
+                'tempat_lahir'     => $faker->city,
+                'tanggal_lahir'    => $faker->dateTimeBetween('-15 years', '-5 years')->format('Y-m-d'),
+                'agama'            => 'Islam',
+                'alamat_asal'      => $faker->address,
                 'keterangan_masuk' => $faker->sentence,
-                'golongan_darah' => $faker->randomElement(['A', 'B', 'AB', 'O']),
-                'tinggi_badan' => $faker->randomFloat(1, 100, 160),
-                'berat_badan' => $faker->randomFloat(1, 20, 60),
+                // Profil medis statis — DIPERTAHANKAN
+                'golongan_darah'   => $faker->randomElement(['A', 'B', 'AB', 'O']),
                 'riwayat_penyakit' => '-',
-                'alergi' => '-',
-                'catatan_kesehatan_lain' => 'Sehat',
-                'tingkat_pendidikan' => $faker->randomElement(['SD', 'SMP']),
-                'nama_sekolah' => 'Sekolah ' . $faker->city,
-                'kelas' => (string)$faker->numberBetween(1, 6),
-                'status_aktif' => true,
+                'alergi'           => '-',
+                'status_aktif'     => true,
             ]);
         }
 

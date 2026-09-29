@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\Kegiatans\Tables;
 
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -48,13 +50,17 @@ class KegiatansTable
                     ->label('Status Publikasi'),
             ])
             ->recordActions([
-                EditAction::make(),
-                \Filament\Actions\DeleteAction::make(),
+                ViewAction::make(),
+                EditAction::make()
+                    ->visible(fn ($record): bool => \App\Filament\Resources\Kegiatans\KegiatanResource::canEdit($record)),
+                DeleteAction::make()
+                    ->visible(fn ($record): bool => \App\Filament\Resources\Kegiatans\KegiatanResource::canDelete($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                    DeleteBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\Kegiatans\KegiatanResource::canDeleteAny()),
+                ])->visible(fn (): bool => \App\Filament\Resources\Kegiatans\KegiatanResource::canDeleteAny()),
             ]);
     }
 }

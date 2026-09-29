@@ -67,15 +67,20 @@ class MonitoringPendidikansTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->visible(fn ($record): bool => \App\Filament\Resources\MonitoringPendidikans\MonitoringPendidikanResource::canEdit($record)),
+                DeleteAction::make()
+                    ->visible(fn ($record): bool => \App\Filament\Resources\MonitoringPendidikans\MonitoringPendidikanResource::canDelete($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
+                    DeleteBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\MonitoringPendidikans\MonitoringPendidikanResource::canDeleteAny()),
+                    ForceDeleteBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\MonitoringPendidikans\MonitoringPendidikanResource::canDeleteAny()),
+                    RestoreBulkAction::make()
+                        ->visible(fn (): bool => \App\Filament\Resources\MonitoringPendidikans\MonitoringPendidikanResource::canDeleteAny()),
+                ])->visible(fn (): bool => \App\Filament\Resources\MonitoringPendidikans\MonitoringPendidikanResource::canDeleteAny()),
             ]);
     }
 }

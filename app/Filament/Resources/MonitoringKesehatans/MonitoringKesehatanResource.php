@@ -35,6 +35,36 @@ class MonitoringKesehatanResource extends Resource
 
     protected static ?string $slug = 'monitoring-kesehatan';
 
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus', 'pengasuh']) ?? false;
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus', 'pengasuh']) ?? false;
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus', 'pengasuh']) ?? false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus', 'pengasuh']) ?? false;
+    }
+
+    public static function canRestore($record): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus', 'pengasuh']) ?? false;
+    }
+
+    public static function canForceDelete($record): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'pengurus', 'pengasuh']) ?? false;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return MonitoringKesehatanForm::configure($schema);

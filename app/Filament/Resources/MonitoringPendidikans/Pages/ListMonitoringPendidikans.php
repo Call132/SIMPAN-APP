@@ -10,11 +10,21 @@ class ListMonitoringPendidikans extends ListRecords
 {
     protected static string $resource = MonitoringPendidikanResource::class;
 
+    public function getSubheading(): ?string
+    {
+        if (! static::getResource()::canCreate()) {
+            return 'Peran Anda memiliki akses lihat data (Read-Only). Penambahan dan perubahan data dinonaktifkan.';
+        }
+
+        return null;
+    }
+
     protected function getHeaderActions(): array
     {
         return [
             CreateAction::make()
-                ->label('Tambah Data'),
+                ->label('Tambah Data')
+                ->visible(fn (): bool => static::getResource()::canCreate()),
         ];
     }
 }

@@ -248,6 +248,74 @@
             background-color: #1d4ed8;
             transform: translateY(-1px);
         }
+
+        /* ====== Custom Pagination ====== */
+        .pagination-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid #f1f5f9;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .pagination-info {
+            font-size: 12.5px;
+            color: #64748b;
+        }
+        .pagination-info strong {
+            color: #0f172a;
+            font-weight: 700;
+        }
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .page-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            height: 34px;
+            padding: 0 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            color: #374151;
+            transition: all 0.15s ease;
+        }
+        .page-btn:hover:not(.page-btn-disabled) {
+            background-color: #eff6ff;
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+        .page-btn-active {
+            background-color: #2563eb !important;
+            border-color: #2563eb !important;
+            color: #ffffff !important;
+            font-weight: 700;
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.4);
+        }
+        .page-btn-disabled {
+            background-color: #f8fafc;
+            color: #cbd5e1;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .page-dots {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 34px;
+            height: 34px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
     </style>
 
     <!-- Hero Banner -->
@@ -454,6 +522,7 @@
     </div>
 
     <!-- Section Audit Log Cetak Laporan -->
+    @if(!empty($canViewLogs) && $canViewLogs)
     <div class="log-container">
         <div class="log-header">
             <div>
@@ -530,9 +599,61 @@
             </table>
         </div>
 
-        <div style="margin-top: 16px;">
-            {{ $laporanLogs->links() }}
+        @if($laporanLogs && $laporanLogs->hasPages())
+        <div class="pagination-wrapper">
+            {{-- Results info --}}
+            <div class="pagination-info">
+                Menampilkan
+                <strong>{{ $laporanLogs->firstItem() ?? 0 }}–{{ $laporanLogs->lastItem() ?? 0 }}</strong>
+                dari <strong>{{ $laporanLogs->total() }}</strong> riwayat
+            </div>
+
+            {{-- Page buttons --}}
+            <div class="pagination-controls">
+                {{-- Prev --}}
+                @if($laporanLogs->onFirstPage())
+                    <span class="page-btn page-btn-disabled">
+                        ‹
+                    </span>
+                @else
+                    <a href="{{ $laporanLogs->previousPageUrl() }}" class="page-btn" title="Sebelumnya">‹</a>
+                @endif
+
+                {{-- Page number links --}}
+                @foreach($laporanLogs->getUrlRange(1, $laporanLogs->lastPage()) as $page => $url)
+                    @if(abs($page - $laporanLogs->currentPage()) <= 2 || $page === 1 || $page === $laporanLogs->lastPage())
+                        @if($page === $laporanLogs->currentPage())
+                            <span class="page-btn page-btn-active">{{ $page }}</span>
+                        @else
+                            {{-- Show ellipsis before if needed --}}
+                            @if($page > 2 && $page === $laporanLogs->currentPage() - 2 && $laporanLogs->currentPage() > 4)
+                                <span class="page-dots">…</span>
+                            @endif
+                            <a href="{{ $url }}" class="page-btn">{{ $page }}</a>
+                            {{-- Show ellipsis after if needed --}}
+                            @if($page < $laporanLogs->lastPage() - 1 && $page === $laporanLogs->currentPage() + 2 && $laporanLogs->currentPage() < $laporanLogs->lastPage() - 3)
+                                <span class="page-dots">…</span>
+                            @endif
+                        @endif
+                    @endif
+                @endforeach
+
+                {{-- Next --}}
+                @if($laporanLogs->hasMorePages())
+                    <a href="{{ $laporanLogs->nextPageUrl() }}" class="page-btn" title="Berikutnya">›</a>
+                @else
+                    <span class="page-btn page-btn-disabled">›</span>
+                @endif
+            </div>
         </div>
+        @elseif($laporanLogs && $laporanLogs->total() > 0)
+        <div class="pagination-wrapper">
+            <div class="pagination-info">
+                Menampilkan <strong>semua {{ $laporanLogs->total() }}</strong> riwayat
+            </div>
+        </div>
+        @endif
     </div>
+    @endif
 
 </x-filament-panels::page>

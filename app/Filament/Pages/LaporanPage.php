@@ -22,19 +22,32 @@ class LaporanPage extends Page
 
     protected string $view = 'filament.pages.laporan-page';
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->hasRole(['admin', 'kepala_panti', 'pengurus']) ?? false;
+    }
+
     public function getViewData(): array
     {
+        $canViewLogs = auth()->user()?->hasRole(['admin', 'kepala_panti']) ?? false;
+
         $logJenis = request('log_jenis', 'semua');
 
-        $logQuery = LaporanLog::with('user');
+        $laporanLogs = null;
+        if ($canViewLogs) {
+            $logQuery = LaporanLog::with('user');
 
-        if ($logJenis !== 'semua') {
-            $logQuery->where('jenis_laporan', $logJenis);
+            if ($logJenis !== 'semua') {
+                $logQuery->where('jenis_laporan', $logJenis);
+            }
+
+            $laporanLogs = $logQuery->orderBy('created_at', 'desc')->paginate(10)->withQueryString();
         }
 
         return [
             'anakList' => AnakAsuh::where('status_aktif', true)->orderBy('nama_lengkap', 'asc')->get(),
-            'laporanLogs' => $logQuery->orderBy('created_at', 'desc')->paginate(10)->withQueryString(),
+            'canViewLogs' => $canViewLogs,
+            'laporanLogs' => $laporanLogs,
             'logJenis' => $logJenis,
         ];
     }
