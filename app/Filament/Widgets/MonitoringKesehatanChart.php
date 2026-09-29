@@ -4,18 +4,19 @@ namespace App\Filament\Widgets;
 
 use App\Models\MonitoringKesehatan;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class MonitoringKesehatanChart extends ChartWidget
 {
     protected ?string $heading = 'Proporsi Kondisi Kesehatan Anak (Status Gizi Terbaru)';
     protected static ?int $sort = 8;
-
-   
+    protected static bool $isLazy = false;
 
     protected function getData(): array
     {
-        $latestRecords = MonitoringKesehatan::select('status_gizi', DB::raw('count(*) as count'))
+        return Cache::remember('dashboard_chart_kondisi_kesehatan', 60, function () {
+            $latestRecords = MonitoringKesehatan::select('status_gizi', DB::raw('count(*) as count'))
             ->whereIn('id', function ($query) {
                 $query->select(DB::raw('MAX(id)'))
                     ->from('monitoring_kesehatans')
@@ -58,6 +59,7 @@ class MonitoringKesehatanChart extends ChartWidget
             ],
             'labels' => $labels,
         ];
+        });
     }
 
     protected function getType(): string

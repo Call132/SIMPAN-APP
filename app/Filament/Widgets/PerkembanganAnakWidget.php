@@ -12,6 +12,7 @@ use Filament\Widgets\TableWidget as BaseWidget;
 class PerkembanganAnakWidget extends BaseWidget
 {
     protected static ?int $sort = 4;
+    protected static bool $isLazy = false;
 
     protected int|string|array $columnSpan = 'full';
 
