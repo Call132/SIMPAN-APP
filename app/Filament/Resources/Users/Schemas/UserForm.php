@@ -36,7 +36,17 @@ class UserForm
                             ->helperText(fn (string $operation): ?string => $operation === 'edit' ? 'Kosongkan jika tidak ingin mengubah kata sandi.' : null),
                         Select::make('role')
                             ->label('Peran / Hak Akses')
-                            ->options(User::getRoleOptions())
+                            ->options(function (string $operation, ?User $record): array {
+                                if ($operation === 'create') {
+                                    return User::getAssignableRoleOptions();
+                                }
+
+                                if ($record && $record->role === User::ROLE_ADMIN) {
+                                    return User::getRoleOptions();
+                                }
+
+                                return User::getAssignableRoleOptions();
+                            })
                             ->required()
                             ->default(User::ROLE_PENGASUH),
                     ])->columns(2),

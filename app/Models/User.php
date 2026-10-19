@@ -34,6 +34,15 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
+    public static function getAssignableRoleOptions(): array
+    {
+        return [
+            self::ROLE_KEPALA_PANTI => 'Kepala Panti',
+            self::ROLE_PENGURUS => 'Pengurus Panti',
+            self::ROLE_PENGASUH => 'Pengasuh',
+        ];
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;

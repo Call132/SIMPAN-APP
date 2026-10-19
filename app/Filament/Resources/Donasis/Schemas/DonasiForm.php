@@ -39,8 +39,7 @@ class DonasiForm
                 TextInput::make('jumlah_barang')
                     ->numeric(),
                 Textarea::make('keterangan')
-                    ->columnSpanFull(),
-                TextInput::make('bukti_transfer'),
+                    
             ]);
     }
 }

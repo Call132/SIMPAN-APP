@@ -75,17 +75,8 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // 2. Pengurus (5)
-        for ($i = 0; $i < 5; $i++) {
-            Pengurus::create([
-                'nama' => $faker->name,
-                'jabatan' => $faker->randomElement(['Ketua', 'Sekretaris', 'Bendahara', 'Pengasuh']),
-                'alamat' => $faker->address,
-                'telepon' => $faker->phoneNumber,
-                'tanggal_mulai_tugas' => $faker->dateTimeBetween('-3 years', 'now')->format('Y-m-d'),
-                'status_aktif' => true,
-            ]);
-        }
+        // 2. Pengurus & Pengasuh
+        $this->call(PengurusSeeder::class);
 
         // 3. Donatur (5)
         $donaturs = [];
@@ -129,5 +120,8 @@ class DatabaseSeeder extends Seeder
 
         // 6. Monitoring (Observasi Harian, Pendidikan, Kesehatan)
         $this->call(MonitoringSeeder::class);
+
+        // 7. Kegiatan Panti Asuhan
+        $this->call(KegiatanSeeder::class);
     }
 }
