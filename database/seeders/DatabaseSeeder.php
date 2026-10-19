@@ -123,5 +123,8 @@ class DatabaseSeeder extends Seeder
 
         // 7. Kegiatan Panti Asuhan
         $this->call(KegiatanSeeder::class);
+
+        // 8. Pengaturan Profil Panti (Sejarah, Visi, Misi)
+        $this->call(PantiSettingsSeeder::class);
     }
 }
